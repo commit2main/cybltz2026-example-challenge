@@ -1,0 +1,7 @@
+services:
+  chall:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
