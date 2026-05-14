@@ -3,5 +3,17 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - chall_net
+    read_only: true
+    cap_drop:
+      - ALL
     ports:
       - "8080:8080"
+
+networks:
+  chall_net:
+    driver: bridge
+    # Prevent external access to the network
+    internal: true

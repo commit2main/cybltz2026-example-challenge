@@ -1,9 +1,14 @@
-FROM debian:trixie-slim
+FROM python:3.13-slim
 
-# Install netcat
-RUN apt-get update && apt-get install -y netcat && apt-get clean
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py .
+COPY index.html .
+COPY flag.txt /flag.txt
 
 EXPOSE 8080
 
-# Simple netcat server that listens on port 8080 and echoes back any received data
-CMD ["nc", "-l", "-p", "8080", "-e", "/bin/cat"]
+CMD ["python", "app.py"]
